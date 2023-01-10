@@ -21,13 +21,13 @@ module.exports = {
     });
   },
 
-  list: async ({ isAdmin, id }, page, limit) => {
+  list: async ({ isAdmin, id }, search, page, limit) => {
     const skip = (page - 1) * limit;
     let result = {};
     if (isAdmin) {
-      result = await Files.getFiles(limit, skip);
+      result = await Files.getFiles(search, limit, skip);
     } else {
-      result = await Files.getFilesByUserId(id, limit, skip);
+      result = await Files.getFilesByUserId(id, search, limit, skip);
     }
     return {
       data: result.files,

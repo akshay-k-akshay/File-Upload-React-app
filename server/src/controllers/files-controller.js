@@ -17,10 +17,10 @@ module.exports = {
 
   list: async (req, res, next) => {
     try {
-      let { page, limit } = req.query;
+      let { page, limit, searchText } = req.query;
       page = parseInt(page) || 1;
       limit = parseInt(limit) || 10;
-      const result = await fileService.list(req.user, page, limit);
+      const result = await fileService.list(req.user, searchText, page, limit);
       return res.status(StatusCodes.OK).json({
         message: "User Registerd Successfully",
         ...result

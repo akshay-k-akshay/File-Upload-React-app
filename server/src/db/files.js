@@ -7,9 +7,9 @@ module.exports = {
     return await file.save();
   },
 
-  getFilesByUserId: async (uploadedBy, limit, skip) => {
-    const total = await Files.countDocuments({ uploadedBy });
-    const files = await Files.find({ uploadedBy })
+  getFilesByUserId: async (uploadedBy, search, limit, skip) => {
+    const total = await Files.countDocuments({ uploadedBy, name: { $regex: search } });
+    const files = await Files.find({ uploadedBy, name: { $regex: search } })
       .populate({
         path: "uploadedBy",
         select: "name"
@@ -19,9 +19,9 @@ module.exports = {
     return { files, total };
   },
 
-  getFiles: async (limit, skip) => {
-    const total = await Files.countDocuments({});
-    const files = await Files.find()
+  getFiles: async (search, limit, skip) => {
+    const total = await Files.countDocuments({ name: { $regex: search } });
+    const files = await Files.find({ name: { $regex: search } })
       .populate({
         path: "uploadedBy",
         select: "name"
