@@ -2,7 +2,6 @@ const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
 const morgan = require("morgan");
-const path = require("path");
 
 const { morganOption, dbConfig } = require("./config");
 const { errorHandler } = require("./middlewares");
@@ -20,7 +19,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 app.use(helmet());
 app.use(morgan("combined", morganOption));
-app.use("/assets", express.static(path.join(__dirname, "../public")));
 
 // routes
 app.use("/auth", Auth);
